@@ -22,14 +22,15 @@ export class ItemService {
 
   constructor() {}
 
-  /*
+  
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.url);
-  }*/
+  }
 
+  /* 
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(`${this.url}/objects`);
-  }
+  }*/ 
 
 
   // * Metodos
