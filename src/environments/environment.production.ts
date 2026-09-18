@@ -1,4 +1,8 @@
 export const environment = {
     API: 'https://api.restful-api.dev/objects',
-    // API: 'http://localhost:3000',
-};
+    AWS: {
+        KEY: '',
+        TOKEN: '',
+        XXX: '',
+    }
+}

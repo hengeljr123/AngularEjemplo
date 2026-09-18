@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from '../interfaces/item';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +17,18 @@ export class ItemService {
   };
 
   private http = inject(HttpClient);
-  API_URL: string = 'https://api.restful-api.dev/objects';
+  // url: string = 'https://api.restful-api.dev/objects';
+  private url = environment.API;
 
   constructor() {}
 
+  /*
   getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(this.API_URL);
+    return this.http.get<Item[]>(this.url);
+  }*/
+
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.url}/objects`);
   }
 
 
@@ -29,17 +36,17 @@ export class ItemService {
   postItem(item: Omit<Item, 'id'>): Observable<Item> {
     // Usamos JSON.stringify para forzar el formato del cuerpo
     return this.http.post<Item>(
-      this.API_URL,
+      this.url,
       JSON.stringify(item),
       this.httpOptions
     );
   }
 
   deleteItem(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.API_URL}/${id}`);
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 
   patchItem(id: string, item: Partial<Item>): Observable<Item> {
-    return this.http.patch<Item>(`${this.API_URL}/${id}`, item, this.httpOptions);
+    return this.http.patch<Item>(`${this.url}/${id}`, item, this.httpOptions);
   }
 }
