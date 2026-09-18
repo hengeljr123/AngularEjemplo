@@ -1,0 +1,22 @@
+<h2>Article</h2>
+<div>
+    <button matButton="outlined" (click)="helloDad()">Basic</button>
+</div>
+<div>
+    @if (this.inc == 10) {
+        <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Fuga, accusamus ullam? Accusamus, ut quisquam. Deserunt
+            cumque alias asperiores ipsum ad praesentium qui voluptates
+            inventore quidem. Velit ab distinctio illo tempore.
+        </p>
+    }
+    @else {
+        <p>No hay nada que mostrar, papu</p>
+    }
+    <ul>
+    @for (item of items; track $index) {
+        <li>{{item}}</li>
+    }
+    </ul>
+</div>

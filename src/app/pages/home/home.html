@@ -1,0 +1,8 @@
+<p>
+    {{title}}
+</p>
+
+<h3>{{childMessage}}</h3>
+
+<app-article (hello)="setChildMessage($event)"/>
+<app-aside [inc]="childMessage"></app-aside>
