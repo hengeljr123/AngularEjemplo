@@ -3,25 +3,51 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { Item as ItemInterface } from './interfaces/item';
 import { ItemService } from './services/item';
+import {MatInputModule} from '@angular/material/input';
+import { 
+  FormBuilder, 
+  ReactiveFormsModule, 
+  Validators, 
+  FormGroup, 
+} from '@angular/forms';
 
 @Component({
   selector: 'app-item',
-  imports: [MatTableModule, MatButtonModule],
+  imports: [MatTableModule, MatButtonModule, MatInputModule, ReactiveFormsModule],
   templateUrl: './item.html',
   styleUrl: './item.scss',
 })
 export class Item implements OnInit {
   private itemService = inject(ItemService);
 
-  // Incluimos 'actions' para mostrar la columna de botones
   displayedColumns: string[] = ['id', 'name', 'color', 'capacity', 'price'];
   dataSource: ItemInterface[] = [];
+  public form!: FormGroup;
+  private fb = inject(FormBuilder);
+
+
+  
+  constructor() {
+    this.form = this.fb.group({
+      food: ['', Validators.required],
+      comment: [null, Validators.required],
+    })
+  
+  }
 
   // ! Guardar el Id creado
   createdItemId: string | null = null;
 
   ngOnInit(): void {
     this.getAllItems();
+  }
+
+  onSubmit(): void {
+    if(this.form.valid){
+      console.log(this.form.value());
+    } else {
+      console.warn('Formulario incorrecto');
+    }
   }
 
   getAllItems(): void {
@@ -73,4 +99,6 @@ export class Item implements OnInit {
       error: (err) => console.error(`Error al actualizar item con id ${this.createdItemId }`, err),
     });
   }
+
+  
 }
